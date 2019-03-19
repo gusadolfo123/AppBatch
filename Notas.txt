@@ -1,0 +1,4 @@
+
+npm i -D electron@latest
+npm i bootstrap
+npm i electron-reload -D 

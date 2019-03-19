@@ -1,0 +1,19 @@
+{
+  "name": "batch-generator",
+  "version": "1.0.0",
+  "description": "Generacion de archivos batch para puestas en produccion",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron src/app.js"
+  },
+  "keywords": [],
+  "author": "Gustavo Moreno - gusadolfo123@hotmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^4.1.0",
+    "electron-reload": "^1.4.0"
+  },
+  "dependencies": {
+    "bootstrap": "^4.3.1"
+  }
+}
