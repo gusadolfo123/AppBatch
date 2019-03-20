@@ -1,82 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Batch Generator</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="../app.css">
-</head>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../app.css" />
+  </head>
 
-<body>
-
+  <body>
     <div id="app">
-        <h1 class="text-center bg-primary text-light p-4">Batch Generator</h1>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-sm-12 col-lg-2">
-                    <h3 class="text-center my-1">Servers</h3>
-                    <div class="form-inline my-2">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <button class="btn btn-primary"><i class="fas fa-plus"></i></button>
-                            </div>
-                            <input type="text" class="form-control" placeholder="IP Server" aria-label="IP Server"
-                                aria-describedby="btnGroupAddon">
-                        </div>
-                    </div>
-                    <div class="px-1">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="server1">
-                            <label class="custom-control-label" for="server1">172.17.4.181</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="server2">
-                            <label class="custom-control-label" for="server2">172.17.4.70</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="server3">
-                            <label class="custom-control-label" for="server3">172.17.10.11</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="server4">
-                            <label class="custom-control-label" for="server4">172.17.4.74</label>
-                        </div>
-                    </div>
+      <h1 class="text-center bg-primary text-light p-4">Batch Generator</h1>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-sm-12 col-lg-4">
+            <h3 class="text-center my-1">Servers</h3>
+            <div id="listServers">
+              <div class="form-inline my-2 mx-0">
+                <div class="input-group col-12">
+                  <input type="text" class="form-control" placeholder="Name Server" aria-label="Name Server" aria-describedby="btnGroupAddon" v-model="server.name" />
                 </div>
-                <div class="col-md-8">
-                    <h3 class="text-center my-1">Paths</h3>
-                    <input class="form-control my-2" type="text" placeholder="Origin Path">
-                    <input class="form-control my-2" type="text" placeholder="Destiny Path">
-                    <input class="form-control my-2" type="text" placeholder="Log Output">
+              </div>
+              <div class="form-inline my-2 mx-0">
+                <div class="input-group col-12">
+                  <input type="text" class="form-control" placeholder="IP Server" aria-label="IP Server" aria-describedby="btnGroupAddon" v-model="server.ip" />
                 </div>
+              </div>
+              <div class="col-12 mb-1">
+                <button class="btn btn-primary w-100" v-on:click="addServer()">Add Service</button>
+              </div>
+              <div class="custom-control custom-checkbox mx-3" v-for="(server, index) in servers" :key="index">
+                <input type="checkbox" class="custom-control-input" :id="index" v-model="servers" />
+                <label class="custom-control-label" :for="index">{{ server.name }} - {{ server.ip }}</label>
+              </div>
             </div>
-            <h1 class="text-center my-4">Output File</h1>
-            <div class="row">
-                <div class="px-1">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis tempora quisquam officia
-                    recusandae quaerat quos adipisci rem totam maxime, ut cupiditate minus vitae magnam quam optio.
-                    Soluta
-                    corrupti ea fugit?
-                </div>
-            </div>
+          </div>
+          <div class="col-md-8">
+            <h3 class="text-center my-1">Paths</h3>
+            <input class="form-control my-2" type="text" name="ServerData" v-model="path.serverData" placeholder="Server Data - \\172.22.4.47\PPPoliedros" />
+            <input
+              class="form-control my-2"
+              type="text"
+              name="OriginPath"
+              v-model="path.originPath"
+              placeholder="Origin - Implementacion\SERVICIO\Comcel.Pol.WCF.Host.Validation"
+            />
+            <input
+              class="form-control my-2"
+              type="text"
+              name="DestinyPath"
+              v-model="path.destinyPath"
+              placeholder="Destiny - d$\inetpub\wwwrootValidation\Comcel.Pol.WCF.Host.Validation"
+            />
+            <input class="form-control my-2" type="text" name="Brief" v-model="path.brief" placeholder="Brief - B32828" />
+            <button class="btn btn-primary" v-on:click="generateBatch()">Generate</button>
+          </div>
         </div>
+        <h1 class="text-center my-4">Output File</h1>
+        <div class="row">
+          <div class="px-1 bg-secondary p-4 col-12" id="outputFile">
+            <i class="far fa-copy" id="copy" title="Copy to Clipboard" v-on:click="copyToClipboard()"></i>
+            <textarea class="form-control" id="textOutput" rows="3" v-model="batch"></textarea>
+          </div>
+        </div>
+      </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <footer class="bg-dark text-light py-2 text-center fixed-bottom"><span>Created by:</span> gusadolfo123@hotmail.com</footer>
 
-    <footer class="bg-dark text-light py-2 text-center fixed-bottom">
-        <span>Created by:</span> gusadolfo123@hotmail.com
-    </footer>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-</body>
+    <script>
+      class Path {
+        constructor(serverData, originPath, destinyPath, brief) {
+          this.serverData = serverData;
+          this.originPath = originPath;
+          this.destinyPath = destinyPath;
+          this.brief = brief;
+        }
+      }
 
+      class Server {
+        constructor(name, ip) {
+          this.name = name;
+          this.ip = ip;
+        }
+      }
+
+      var app = new Vue({
+        el: '#app',
+        data: {
+          server: {},
+          path: {},
+          servers: [],
+          batch: '',
+        },
+        methods: {
+          addServer: function() {
+            // this.servers.push(Object.assign({}, this.server));
+            this.servers.push(new Server(this.server.name, this.server.ip));
+          },
+          copyToClipboard: function() {
+            var copyText = document.getElementById('textOutput');
+            copyText.select();
+            document.execCommand('copy');
+          },
+          generateBatch: function() {
+            var date = new Date();
+            const dateFormat = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+
+            let netUseServers = '';
+
+            this.servers.forEach(element => {
+              netUseServers += `net use "\\\\${element.ip}\\d$"  \n`;
+            });
+
+            let header = `@rem **********************************************
+      @rem       Proceso Puesta en produccion
+      @rem       Creado por: HITSS
+      @rem       fecha: ${dateFormat}
+      @rem       FSP : ${this.path.brief}
+      @rem **********************************************
+
+      ${netUseServers}
+
+      @REM SERVER SERVICES
+      net use "\\\\172.22.85.254\\d$"
+      `;
+
+            let init = `@Echo *******COMIENZA LA EJECUCION DEL BAT PAP::SERVICIO_WPOLBA04::%date:~0,15%  %time:~0,8% *********** >> \\\\172.22.4.47\\PPPoliedros\\HITSS\\B32828\\Logs\\PAP_svr.txt`;
+            this.batch = init + header;
+          },
+        },
+        created: function() {
+          this.servers.push(new Server('WPOLBA04', '172.22.85.34'));
+          this.servers.push(new Server('WPOLBA05', '172.22.4.58'));
+          this.servers.push(new Server('WPOLBA06', '172.22.85.196'));
+          this.servers.push(new Server('WPOLBA08', '172.22.85.103'));
+          this.servers.push(new Server('WPOLBA15', '172.22.4.145'));
+          this.servers.push(new Server('WPOLBA16', '172.23.3.176'));
+        },
+      });
+    </script>
+
+    <script>
+      // document.getElementById('copy').addEventListener('click', () => {
+      //   copyToClipboard();
+      // });
+
+      // document.getElementById('txtServer').addEventListener('keyup', event => {
+      //   if (event.keyCode === 13) {
+      //     event.preventDefault();
+      //     // document.getElementById('addServer').click();
+      //   }
+      // });
+    </script>
+  </body>
 </html>
