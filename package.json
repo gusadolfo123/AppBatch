@@ -4,16 +4,22 @@
   "description": "Generacion de archivos batch para puestas en produccion",
   "main": "index.js",
   "scripts": {
-    "start": "electron src/app.js"
+    "start": "electron src/app.js",
+    "pack": "build --dir",
+    "dist": "build"
   },
   "keywords": [],
   "author": "Gustavo Moreno - gusadolfo123@hotmail.com",
   "license": "ISC",
   "devDependencies": {
     "electron": "^4.1.0",
+    "electron-builder": "^20.39.0",
     "electron-reload": "^1.4.0"
   },
   "dependencies": {
-    "bootstrap": "^4.3.1"
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.14.7",
+    "textarea-autosize": "^0.4.2"
   }
 }

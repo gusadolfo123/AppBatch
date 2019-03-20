@@ -1,4 +1,8 @@
-const {app, BrowserWindow, Menu} = require('electron');
+const {
+  app,
+  BrowserWindow,
+  Menu
+} = require('electron');
 const url = require('url');
 const path = require('path');
 
@@ -10,20 +14,16 @@ if (process.env.NODE_ENV !== 'Production') {
 
 let MainWindow;
 
-const templateMenu = [
-  {
-    label: 'File',
-    submenu: [
-      {
-        label: 'Add Server',
-        accelerator: 'Ctrl+A',
-        click() {},
-      },
-    ],
-  },
-];
+const templateMenu = [{
+  label: 'File',
+  submenu: [{
+    label: 'Add Server',
+    accelerator: 'Ctrl+A',
+    click() {},
+  }, ],
+}, ];
 
-app.on('ready', function() {
+app.on('ready', function () {
   MainWindow = new BrowserWindow({});
   MainWindow.loadURL(
     url.format({
@@ -43,8 +43,7 @@ app.on('ready', function() {
 if (process.env.NODE_ENV !== 'Production') {
   templateMenu.push({
     label: 'DevTools',
-    submenu: [
-      {
+    submenu: [{
         label: 'Show/Hide Dev Tools',
         click(item, focusedWindow) {
           focusedWindow.toggleDevTools();

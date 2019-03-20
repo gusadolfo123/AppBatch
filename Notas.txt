@@ -2,3 +2,8 @@
 npm i -D electron@latest
 npm i bootstrap
 npm i electron-reload -D 
+npm i textarea-autosize
+
+npm i electron-builder --save-dev
+
+

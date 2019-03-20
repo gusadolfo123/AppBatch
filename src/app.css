@@ -2,14 +2,21 @@
 .btn-primary {
   background-color: #ef3829 !important;
 }
+
 .bg-secondary {
   background-color: aliceblue !important;
 }
+
 .fa-copy {
   position: absolute;
   top: 5px;
   right: 30px;
 }
+
 .fa-copy:hover {
   cursor: pointer;
+}
+
+textarea {
+  height: 300px !important;
 }
