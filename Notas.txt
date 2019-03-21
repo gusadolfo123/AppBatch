@@ -5,5 +5,5 @@ npm i electron-reload -D
 npm i textarea-autosize
 
 npm i electron-builder --save-dev
-
+npm i electron-packager --save-dev
 
